@@ -1,6 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
 from routers.card_swipes import router as card_swipes_router
+from routers.entity import router as entity_router
 
 # Initialize FastAPI
 app = FastAPI(
@@ -9,9 +10,9 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Include the router
+# Include routers
 app.include_router(card_swipes_router, prefix="/card-swipes", tags=["Card Swipes"])
-
+app.include_router(entity_router, prefix="/entity", tags=["Entity Resolution"])
 
 @app.get("/", tags=["Root"])
 def read_root():

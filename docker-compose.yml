@@ -1,0 +1,55 @@
+version: '3.7'
+
+services:
+  # ======================
+  # Elasticsearch Service
+  # ======================
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.10
+    container_name: ethos-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    ports:
+      - "9201:9200"   # Host port 9201 -> Container port 9200
+
+  # ======================
+  # Logstash Service
+  # ======================
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.17.10
+    container_name: ethos-logstash
+    volumes:
+      - ./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
+    ports:
+      - "5002:5000"   # TCP input
+      - "5045:5044"   # HTTP input
+    depends_on:
+      - elasticsearch
+
+  # ======================
+  # Kibana Service
+  # ======================
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.17.10
+    container_name: ethos-kibana
+    ports:
+      - "5602:5601"   # Host port 5602 -> Container port 5601
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+
+# ======================
+# Volumes
+# ======================
+volumes:
+  esdata:
+    driver: local
