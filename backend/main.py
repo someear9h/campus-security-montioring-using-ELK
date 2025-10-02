@@ -2,6 +2,7 @@ import uvicorn
 from fastapi import FastAPI
 from routers.card_swipes import router as card_swipes_router
 from routers.entity import router as entity_router
+from routers.wifi_connect import router as wifi_connect_router
 
 # Initialize FastAPI
 app = FastAPI(
@@ -13,6 +14,8 @@ app = FastAPI(
 # Include routers
 app.include_router(card_swipes_router, prefix="/card-swipes", tags=["Card Swipes"])
 app.include_router(entity_router, prefix="/entity", tags=["Entity Resolution"])
+
+app.include_router(wifi_connect_router, prefix="/wifi-connect", tags=["Wifi Connections"])
 
 @app.get("/", tags=["Root"])
 def read_root():

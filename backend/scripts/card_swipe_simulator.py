@@ -5,7 +5,8 @@ import datetime
 from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
-CSV_PATH = "data/campus_card_swipes.csv"
+PROJECT_ROOT = SCRIPT_DIR.parent
+CSV_PATH = PROJECT_ROOT / "data" / "campus_card_swipes.csv"
 
 # API endpoints
 API_URL = "http://127.0.0.1:8000/card-swipes/ingest"

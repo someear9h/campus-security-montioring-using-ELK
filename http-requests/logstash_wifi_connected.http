@@ -1,0 +1,9 @@
+POST http://localhost:5045
+Content-Type: application/json
+
+{
+  "event_time": "2025-10-02T14:06:00Z",
+  "action": "wifi-connected",
+  "user_id": "SamHdb96d7346870",
+  "location": "AP_CAF_3"
+}

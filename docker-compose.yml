@@ -18,7 +18,7 @@ services:
     volumes:
       - esdata:/usr/share/elasticsearch/data
     ports:
-      - "9201:9200"   # Host port 9201 -> Container port 9200
+      - "9201:9200"   # Host port 9201 → Container port 9200
 
   # ======================
   # Logstash Service
@@ -41,15 +41,12 @@ services:
     image: docker.elastic.co/kibana/kibana:7.17.10
     container_name: ethos-kibana
     ports:
-      - "5602:5601"   # Host port 5602 -> Container port 5601
+      - "5602:5601"   # Host port 5602 → Container port 5601
     environment:
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
     depends_on:
       - elasticsearch
 
-# ======================
-# Volumes
-# ======================
 volumes:
   esdata:
     driver: local
